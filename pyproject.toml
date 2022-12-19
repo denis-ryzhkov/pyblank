@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "todo"
+version = "0.1.0"
+description = "TODO"
+readme = "README.md"
+keywords = ["TODO"]
+repository = "TODO"
+authors = ["Denis Ryzhkov <denisr@denisr.com>"]
+license = "MIT"
+packages = [{ include = "todo", from = "src" }]
+
+[tool.poetry.urls]
+TODO = "https://example.com/"
+
+[tool.poetry.dependencies]
+httpx = "^0"
+python = ">=3.8.1,<4"
+
+[tool.poetry.dev-dependencies]
+black = "^22"
+flake8 = "^6"
+isort = "^5"
+mypy = "^0"
+poethepoet = "^0"
+pytest = "^7"
+pytest-mock = "^3"
+
+[tool.poe.tasks]
+test = "pytest -xv"
+lt.sequence = ["lint", "test"]
+
+[tool.poe.tasks.ci]
+env.CHECK = "--check"
+sequence = ["lt"]
+
+[tool.poe.tasks.lint]
+env.PY_FILES = "src tests"
+env.LINE_LENGTH = "88"
+default_item_type = "cmd"
+sequence = [
+    "black $CHECK --line-length $LINE_LENGTH $PY_FILES",
+    "isort $CHECK --line-length $LINE_LENGTH $PY_FILES",
+    "flake8 --max-line-length $LINE_LENGTH $PY_FILES",
+    "mypy --pretty $PY_FILES",
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

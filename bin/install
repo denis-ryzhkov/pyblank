@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eu -o pipefail
+
+# TODO: Check assumptions below and use `docker` or `pyenv` if needed:
+# Assuming host machine has no `docker` installed, but has `python3` >= 3.8.1.
+
+python3 -m venv .venv
+. .venv/bin/activate
+
+pip install -U pip setuptools
+pip install -U poetry
+
+export POETRY_CACHE_DIR="$(pwd)/.cache/pypoetry"
+poetry install --no-interaction
