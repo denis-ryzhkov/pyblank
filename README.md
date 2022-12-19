@@ -14,6 +14,8 @@ bin/install
 bin/run
 ```
 
+* To enable [Sentry](https://sentry.io/): `export SENTRY_DSN=...` before running.
+
 ## Develop
 
 ```

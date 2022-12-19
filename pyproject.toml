@@ -15,6 +15,7 @@ TODO = "https://example.com/"
 [tool.poetry.dependencies]
 httpx = "^0"
 python = ">=3.8.1,<4"
+sentry-sdk = "^1"
 
 [tool.poetry.dev-dependencies]
 black = "^22"
