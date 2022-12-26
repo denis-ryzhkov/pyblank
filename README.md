@@ -13,7 +13,6 @@ An almost blank Python project template.
 
 * Python 3.8.1+ is required.
 * Run: `bin/install`
-```
 
 ## Configuration
 
