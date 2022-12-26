@@ -1,4 +1,11 @@
 #!/bin/bash
 set -eu -o pipefail
+cd "$(dirname "$0")/.."
 
-.venv/bin/python3 src/todo/main.py
+if [[ "${1-}" == -d ]]
+then
+    shift
+    docker run -v "$PWD/.env":/app/.env "$@" --rm todo:latest
+else
+    .venv/bin/python3 src/todo/main.py
+fi

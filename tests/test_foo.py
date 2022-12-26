@@ -18,7 +18,7 @@ async def test_foo(mocker: MockerFixture) -> None:
         "http://localhost:4242/foo",
         headers={"authorization": "Bearer REDACTED"},
         json={"query": "QUERY"},
-        timeout=10,
+        timeout=30,
     )
 
     assert data == "DATA"

@@ -2,21 +2,46 @@
 
 An almost blank Python project template.
 
-## Install
+## Installation
 
+### Docker for production
+
+* Docker is required.
+* Run: `bin/install -d`
+
+### Local development
+
+* Python 3.8.1+ is required.
+* Run: `bin/install`
 ```
-bin/install
-```
 
-## Run
+## Configuration
 
-```
-bin/run
-```
+* Please edit `.env` file created on installation:
+    * Set required TODO.
+    * Each network request is limited to `TIMEOUT_SECONDS=30`, adjustable.
+    * To enable [Sentry](https://sentry.io/) for notification on errors, set `SENTRY_DSN`.
+    * You may also add other
+      [Sentry options](https://docs.sentry.io/platforms/python/configuration/options/)
+      like `SENTRY_ENVIRONMENT`.
 
-* To enable [Sentry](https://sentry.io/): `export SENTRY_DSN=...` before running.
+* You may also set environment variables to override `.env`, see "Usage" section.
 
-## Develop
+## Usage
+
+### Docker for production
+
+* Run: `bin/run -d`
+* To override `.env`, run e.g. `bin/run -d -e DEBUG=true`
+
+### Local development
+
+* Run: `bin/run`
+* To override `.env`, run e.g. `DEBUG=true bin/run`
+
+## Development
+
+### Lint and test the code
 
 ```
 . .venv/bin/activate

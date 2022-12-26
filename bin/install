@@ -1,14 +1,32 @@
 #!/bin/bash
 set -eu -o pipefail
+cd "$(dirname "$0")/.."
 
-# TODO: Check assumptions below and use `docker` or `pyenv` if needed:
-# Assuming host machine has no `docker` installed, but has `python3` >= 3.8.1.
+if [[ "${1-}" == -d ]]
+then
+    docker build -t todo:latest .
+else
+    python3 -m venv .venv
 
-python3 -m venv .venv
-. .venv/bin/activate
+    # shellcheck disable=SC1091 # "Not following"
+    . .venv/bin/activate
 
-pip install -U pip setuptools
-pip install -U poetry
+    pip install -U pip setuptools
+    pip install -U poetry
 
-export POETRY_CACHE_DIR="$(pwd)/.cache/pypoetry"
-poetry install --no-interaction
+    POETRY_CACHE_DIR="$(pwd)/.cache/pypoetry"
+    export POETRY_CACHE_DIR
+
+    if [[ "${RELEASE-}" == true ]]
+    then
+        poetry install --no-interaction --no-root --only main
+    else
+        poetry install --no-interaction
+    fi
+fi
+
+if [[ -f .env.template ]] && [[ ! -f .env ]]
+then
+    cp .env.template .env
+    echo -e '\nNOTE: Please edit ".env" file\n'
+fi

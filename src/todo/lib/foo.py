@@ -2,6 +2,8 @@
 
 import httpx
 
+from todo.lib.config import config
+
 
 async def foo(query: str) -> str:
     """TODO
@@ -17,7 +19,7 @@ async def foo(query: str) -> str:
             "http://localhost:4242/foo",
             headers={"authorization": "Bearer REDACTED"},
             json={"query": query},
-            timeout=10,
+            timeout=config.timeout_seconds,
         )
 
     return response.json()["data"]

@@ -15,6 +15,7 @@ TODO = "https://example.com/"
 [tool.poetry.dependencies]
 httpx = "^0"
 python = ">=3.8.1,<4"
+python-dotenv = "^0"
 sentry-sdk = "^1"
 
 [tool.poetry.dev-dependencies]
@@ -25,9 +26,10 @@ mypy = "^0"
 poethepoet = "^0"
 pytest = "^7"
 pytest-mock = "^3"
+shellcheck-py = "^0"
 
 [tool.poe.tasks]
-test = "pytest -xv"
+test = "pytest -xv tests"
 lt.sequence = ["lint", "test"]
 
 [tool.poe.tasks.ci]
@@ -39,6 +41,7 @@ env.PY_FILES = "src tests"
 env.LINE_LENGTH = "88"
 default_item_type = "cmd"
 sequence = [
+    "shellcheck -s bash bin/*",
     "black $CHECK --line-length $LINE_LENGTH $PY_FILES",
     "isort $CHECK --line-length $LINE_LENGTH $PY_FILES",
     "flake8 --max-line-length $LINE_LENGTH $PY_FILES",
